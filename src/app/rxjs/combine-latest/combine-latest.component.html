@@ -1,0 +1,9 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <pre >{{vm.stream1}}</pre>
+  <pre >{{vm.stream2}}</pre>
+  <pre >{{vm.stream3}}</pre>
+</ng-container>
+<input type="number" class="form-control" #myInput (change)="triggerSubject(+myInput.value)">
+
+<!-- <button class="btn btn-danger" (click)="triggerSubject(2)">    2 </button>
+<button class="btn btn-secondary" (click)="triggerSubject(3)"> 3 </button> -->

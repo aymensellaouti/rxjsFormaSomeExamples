@@ -7,10 +7,12 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AddCvComponent } from './cv/add-cv/add-cv.component';
 import { CvComponent } from './cv/cv/cv.component';
 import { DetailsCvComponent } from './cv/details-cv/details-cv.component';
+import { ConcatMapComponent } from './rxjs/concat-map/concat-map.component';
 
 const routes: Route[] = [
   { path: '', redirectTo: 'cv', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'products', component: ConcatMapComponent },
   {
     path: 'cv',
     component: CvComponent,

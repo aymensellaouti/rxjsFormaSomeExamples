@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -24,6 +24,11 @@ import { EmbaucheComponent } from './cv/embauche/embauche.component';
 import { CvCardComponent } from './cv/cv-card/cv-card.component';
 import { TodoComponent } from './todo/todo/todo.component';
 import { MergeComponent } from './rxjs/merge/merge.component';
+import { CombineLatestComponent } from './rxjs/combine-latest/combine-latest.component';
+import { FromComponent } from './rxjs/from/from.component';
+import { SliderComponent } from './rxjs/slider/slider.component';
+import { FromEventComponent } from './rxjs/from-event/from-event.component';
+import { ConcatMapComponent } from './rxjs/concat-map/concat-map.component';
 
 @NgModule({
   declarations: [
@@ -41,13 +46,21 @@ import { MergeComponent } from './rxjs/merge/merge.component';
     NF404Component,
     LoginComponent,
     MergeComponent,
+    CombineLatestComponent,
+    FromComponent,
+    SliderComponent,
+    FromEventComponent,
+    ConcatMapComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }), // ToastrModule added
     AppRoutingModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
   providers: [AuthInterceptorProvider],

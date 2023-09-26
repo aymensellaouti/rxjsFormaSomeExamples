@@ -1,3 +1,5 @@
-<p>merge works!</p>
 
-<!-- {{ merge$ | async }} -->
+
+<ol *ngIf="(merge$ | async)?.length as stream">
+  <li>{{stream}}</li>
+</ol>

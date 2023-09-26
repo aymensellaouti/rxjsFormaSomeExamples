@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cv } from '../model/cv';
-import { Subject, distinctUntilChanged, Observable } from 'rxjs';
+import { Subject, distinctUntilChanged, Observable, retry } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API } from '../../../config/api.config';
 
@@ -43,7 +43,12 @@ export class CvService {
    *
    */
   getCvs(): Observable<Cv[]> {
-    return this.http.get<Cv[]>(API.cv);
+    return this.http.get<Cv[]>(API.cv).pipe(
+      retry({
+        delay: 3000,
+        count: 3
+      })
+    );
   }
 
   /**
