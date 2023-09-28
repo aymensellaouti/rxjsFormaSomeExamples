@@ -45,8 +45,8 @@ fdescribe('CvComponent', () => {
     // Arrange (Fake Inputs)
     cvServiceSpy.getCvs.and.nextWith(fakeCvs);
     component.getCvs().subscribe((cvs) => {
-      console.log(cvs);
-      console.log(fakeCvs);
+      // console.log(cvs);
+      // console.log(fakeCvs);
       expect(cvs).toEqual(fakeCvs);
     })
   });

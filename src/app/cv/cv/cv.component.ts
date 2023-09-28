@@ -37,7 +37,7 @@ export class CvComponent {
   getCvs(): Observable<Cv[]> {
     return this.cvService.getCvs().pipe(
       // ignoreElements(),
-      startWith([]),
+      // startWith([]),
       catchError((error) => of(error))
     );
   }
