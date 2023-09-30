@@ -64,24 +64,8 @@ fdescribe("CvComponent", () => {
   it('should return the fake list of cvs', () => {
     // Arrange (Fake Inputs)
     cvServiceSpy.getCvs.and.throwWith(new Error('fake list of cvs'));
-    cvServiceSpy.getFakeCvs.and.callFake(CvService.prototype.getFakeCvs);
-    // cvServiceSpy.getFakeCvs.and.returnValue([
-    //   new Cv(1, 'aymen', 'sellaouti', 'teacher', 'as.jpg', '1234', 40),
-    //   new Cv(2, 'skander', 'sellaouti', 'enfant', '       ', '1234', 4),
-    // ]);
-    // component.getCvs().subscribe((cvs) => {
-    //   // console.log(cvs);
-    //   // console.log(fakeCvs);
-    //   console.log("here");
-
-    //   expect(cvs.length).toEqual(fakeCvs.length);
-    // });
+    cvServiceSpy.getFakeCvs.and.returnValue(fakeFakeCvs);
     const observerSpy = subscribeSpyTo(component.getCvs(), {expectErrors: true});
-    // await observerSpy.onError();
-    // expect(observerSpy.receivedError()).toBe(true);
-    // console.log(observerSpy.getError());
-    // console.log({lastvaluee: observerSpy.expectErrors().getLastValue()});
-
     expect(observerSpy.expectErrors().getLastValue()).toEqual(fakeFakeCvs);
   });
 });
