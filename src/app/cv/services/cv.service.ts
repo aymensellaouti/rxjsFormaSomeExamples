@@ -32,7 +32,12 @@ export class CvService {
    *
    */
   getFakeCvs(): Cv[] {
-    return this.cvs;
+    console.log('in getFakeCvs');
+
+    return [
+      new Cv(1, 'aymen', 'sellaouti', 'teacher', 'as.jpg', '1234', 40),
+      new Cv(2, 'skander', 'sellaouti', 'enfant', '       ', '1234', 4),
+    ];
   }
 
   /**
