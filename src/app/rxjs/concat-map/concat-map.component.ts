@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   BehaviorSubject,
   Observable,
@@ -11,6 +11,7 @@ import {
   takeWhile,
   tap,
 } from "rxjs";
+import { ProductService } from "src/app/services/product.service";
 
 export interface ApiResponse {
   limit: number;
@@ -32,31 +33,33 @@ export interface Product {
   thumbnail: string;
   images: string[];
 }
-const API = "https://dummyjson.com/products";
+
 export interface Settings {
   limit: number;
   skip: number;
 }
 
 @Component({
-  selector: "app-concat-map",
-  templateUrl: "./concat-map.component.html",
-  styleUrls: ["./concat-map.component.css"],
+  selector: 'app-concat-map',
+  templateUrl: './concat-map.component.html',
+  styleUrls: ['./concat-map.component.css'],
 })
-export class ConcatMapComponent {
+export class ConcatMapComponent implements  OnInit {
   setting = { limit: 12, skip: 0 };
   products: Product[] = [];
   settings$: BehaviorSubject<Settings> = new BehaviorSubject(this.setting);
   products$!: Observable<Product[]>;
-  constructor(private http: HttpClient) {
+  constructor(
+    private productService: ProductService
+  ) {}
+  ngOnInit() {
     this.products$ = this.getProducts();
   }
-
   getProducts(): Observable<Product[]> {
     return this.settings$.pipe(
       concatMap((setting) => {
-        const { limit, skip } = setting;
-        return this.http.get<ApiResponse>(`${API}?limit=${limit}&skip=${skip}`);
+        console.log({setting});
+        return this.productService.getProducts(setting)
       }),
       map((response) => response.products),
       takeWhile((response) => !!response.length),

@@ -11,7 +11,6 @@ import { subscribeSpyTo } from "@hirez_io/observer-spy";
 fdescribe("CvComponent", () => {
   let component: CvComponent;
   let cvServiceSpy: Spy<CvService>;
-  let cvComponentSpy: Spy<CvService>;
   let fixture: ComponentFixture<CvComponent>;
   let fakeCvs: Cv[];
   let fakeFakeCvs: Cv[];
