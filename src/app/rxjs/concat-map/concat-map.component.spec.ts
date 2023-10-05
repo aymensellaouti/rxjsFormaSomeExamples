@@ -205,7 +205,7 @@ fdescribe('ConcatMapComponent', () => {
 
   let products: Product[] ;
   let fakeSetting : Settings = {limit: 3, skip: 0}
-  function fakeGetProducts(setting: Settings) {
+  function fakeGetProducts(/*setting: Settings*/) {
     console.log('In fakeGetProducts with settings :', fakeSetting);
 
     const extractedProducts = products.slice(
@@ -262,7 +262,30 @@ fdescribe('ConcatMapComponent', () => {
     const firstProducts = products.slice(0, 3);
     console.log({ firstProducts });
     expect(observerSpy.getFirstValue()).toEqual(firstProducts);
+    console.log('1st call to getProducts');
+    console.log({ getFirstValue: observerSpy.getFirstValue() });
+    console.log({ receivedNext: observerSpy.receivedNext() });
+    console.log({ getValues: observerSpy.getValues() });
+    console.log({ getValuesLength: observerSpy.getValuesLength() });
+    console.log({ getValueAt: observerSpy.getValueAt(1) });
+    console.log({ getLastValue: observerSpy.getLastValue() });
+
     component.more();
+    console.log('Call more(1)');
+    // première valeur émise
+    console.log({ getFirstValue: observerSpy.getFirstValue() });
+
+    // Toutes les valeurs émises
+    console.log({ getValues: observerSpy.getValues() });
+
+    // Nombre des valeurs émises
+    console.log({ getValuesLength: observerSpy.getValuesLength() });
+
+    // La iéme valeure émise
+    console.log({ getValueAt: observerSpy.getValueAt(1) });
+
+    // La dernière valeure émise
+    console.log({ getLastValue: observerSpy.getLastValue() });
     expect(observerSpy.getLastValue()?.length).toBe(6);
     component.more();
     expect(observerSpy.getLastValue()?.length).toBe(9);
@@ -272,3 +295,19 @@ fdescribe('ConcatMapComponent', () => {
     expect(observerSpy.receivedComplete()).toBeTruthy();
   });
 });
+// cvServiceSpy.getCvs.and.nextWithValues([
+//   { value: fakeItemsList },
+//   { value: fakeItemsList, delay: 1000 },
+//   { errorValue: someError }, // <- will throw this error, you can also add a "delay"
+//   { complete: true }, // <- you can add a "delay" as well
+// ]);
+
+
+  // // EXPECTATIONS:
+  // expect(observerSpy.getFirstValue()).toEqual('first');
+  // expect(observerSpy.receivedNext()).toBe(true);
+  // expect(observerSpy.getValues()).toEqual(fakeValues);
+  // expect(observerSpy.getValuesLength()).toEqual(3);
+  // expect(observerSpy.getValueAt(1)).toEqual('second');
+  // expect(observerSpy.getLastValue()).toEqual('third');
+  // expect(observerSpy.receivedComplete()).toBe(true);

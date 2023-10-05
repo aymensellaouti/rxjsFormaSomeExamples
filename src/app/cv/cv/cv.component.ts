@@ -3,7 +3,7 @@ import { Cv } from "../model/cv";
 import { LoggerService } from "../../services/logger.service";
 import { ToastrService } from "ngx-toastr";
 import { CvService } from "../services/cv.service";
-import { Observable, catchError, ignoreElements, of, startWith } from "rxjs";
+import { Observable, catchError, filter, ignoreElements, map, of, startWith } from "rxjs";
 @Component({
   selector: 'app-cv',
   templateUrl: './cv.component.html',
@@ -28,7 +28,8 @@ export class CvComponent implements OnInit {
     return this.cvService.getCvs().pipe(
       // ignoreElements(),
       // startWith([]),
-      catchError((error) => of(this.cvService.getFakeCvs()))
+      catchError((error) => of(this.cvService.getFakeCvs())),
+      // map(cvs => cvs.filter(cv => cv.age > 18)),
     );
   }
   getSelectedCv(cv: Cv) {

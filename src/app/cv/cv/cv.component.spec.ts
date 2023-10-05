@@ -24,7 +24,6 @@ fdescribe("CvComponent", () => {
       // Automatically create a spy with all functions available
       providers: [provideAutoSpy(CvService)],
     }).compileComponents();
-    cvServiceSpy = TestBed.inject<any>(CvService);
     fakeCvs = [
       new Cv(1, "aymen", "sellaouti", "teacher", "as.jpg", "1234", 40),
       // new Cv(2, "skander", "sellaouti", "enfant", "       ", "1234", 4),
@@ -49,22 +48,25 @@ fdescribe("CvComponent", () => {
   it("should return the list of cvs", () => {
     // Arrange (Fake Inputs)
     cvServiceSpy.getCvs.and.nextWith(fakeCvs);
-    // component.getCvs().subscribe((cvs) => {
-    //   // console.log(cvs);
-    //   // console.log(fakeCvs);
-    //   console.log("here");
-
-    //   expect(cvs.length).toEqual(fakeCvs.length);
-    // });
+    // .nextWithValues([])
+    component.getCvs().subscribe((cvs) => {
+      console.log("here");
+      expect(cvs.length).toEqual(fakeCvs.length);
+    });
     const observerSpy = subscribeSpyTo(component.getCvs())
     console.log(observerSpy.getLastValue());
     expect(observerSpy.getLastValue()).toEqual(fakeCvs);
   });
   it('should return the fake list of cvs', () => {
     // Arrange (Fake Inputs)
-    cvServiceSpy.getCvs.and.throwWith(new Error('fake list of cvs'));
+    // cvServiceSpy.getCvs.and.throwWith(new Error('fake list of cvs'));
+    // cvServiceSpy.getFakeCvs.and.callFake(CvService.prototype.getFakeCvs);
+    cvServiceSpy.getCvs.and.nextWithValues([{errorValue: new Error('fake list of cvs')}, { complete: true }]);
     cvServiceSpy.getFakeCvs.and.returnValue(fakeFakeCvs);
     const observerSpy = subscribeSpyTo(component.getCvs(), {expectErrors: true});
+    console.log({ cvLastValue: observerSpy.expectErrors().getValues() });
     expect(observerSpy.expectErrors().getLastValue()).toEqual(fakeFakeCvs);
   });
 });
+
+
